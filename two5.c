@@ -23,18 +23,14 @@ int main () {
 
    printf("First string: \n");
    for (i = 0; i <= MAXSTRING && (c = getchar()) != EOF && c != '\n'; i++) 
-   {
         str1[i] = c;
-   }      
     str1[i] = '\0';
-    puts(str1);
 
    printf("Secound string: \n");
    for (i = 0; i <= MAXSTRING && (c = getchar()) != EOF && c != '\n'; i++) 
        str2[i] = c;
     str2[i] = '\0';
 
-   puts(str2);
    printf("%d\n", any(str1, str2));
 
 return 0; 
