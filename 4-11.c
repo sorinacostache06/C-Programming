@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define MAXSTRING 100
 #define NUMBER '0'
@@ -84,7 +85,9 @@ double pop()
 
 double getop(char s[])
 {
-    int i, c, d; 
+    int i, c;
+    static char buf[MAXSTRING]; 
+
     while ((s[0] = c = getch()) == ' ' || c == '\t'); 
     s[1] = '\0'; 
     if (!isdigit(c) && c != '.' && c != '-') 
@@ -98,12 +101,12 @@ double getop(char s[])
         if (isdigit(c = getch())) {
             s[i++] = '-';
             s[i++] = c;
-            while (isdigit(c = getch()) || c == '.')
+           while (isdigit(c = getch()) || c == '.')
                 s[i++] = c;
         }
         else {
             if (c != EOF)
-                ungetch(c);
+                strncat(buf, &c, 1);
             return '-';
         }
 
@@ -113,20 +116,18 @@ double getop(char s[])
 
      
     if (c != EOF) 
-        ungetch(c);
+        strncat(buf, &c, 1);
 
     return NUMBER; 
 }
         
 int getch(void)  
 { 
-    return (bufp > 0) ? buf[--bufp] : getchar(); 
-} 
-
-void ungetch(int c)   
-{ 
-    if (bufp >= BUFSIZE) 
-        printf("ungetch: too many characters\n"); 
-    else 
-        buf[bufp++] = c; 
+    char c;
+    if (strlen(buf) > 0) {
+        c = buf[0];
+        memmove(buf, buf+1, strlen(buf));
+        return c;
+    } 
+    return getchar();
 } 
