@@ -41,7 +41,6 @@ int main()
     scanf("%d",&n);
     printf("Enter base:\n");
     scanf("%d",&b);
-
     itob(n,s,b);
     printf("%s\n",s);
 }
