@@ -10,6 +10,7 @@
      step = 20;      /* step size */ 
      celsius = lower; 
      printf("Celsius  Fahrenheit \n");
+     
      while (celsius <= upper) { 
          fahr = (celsius*9.0)/5.0 + 32; 
          printf("%10.0f %8.1f\n", celsius, fahr); 
