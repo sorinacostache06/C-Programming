@@ -10,13 +10,11 @@
 
 double val[MAXVAL];
 int sp = 0;
-char buf[BUFSIZE];    
-int bufp = 0; 
 
 void push(double);
 double pop();
 double getop(char []);
-int getch(void);
+int getch(char []);
 void ungetch(int);
 
 int main()
@@ -88,20 +86,20 @@ double getop(char s[])
     int i, c;
     static char buf[MAXSTRING]; 
 
-    while ((s[0] = c = getch()) == ' ' || c == '\t'); 
+    while ((s[0] = c = getch(buf)) == ' ' || c == '\t'); 
     s[1] = '\0'; 
     if (!isdigit(c) && c != '.' && c != '-') 
         return c;
     
     i = 0; 
     if (isdigit(c))    
-        while (isdigit(s[++i] = c = getch()));
+        while (isdigit(s[++i] = c = getch(buf)));
 
      if (c == '-')
-        if (isdigit(c = getch())) {
+        if (isdigit(c = getch(buf))) {
             s[i++] = '-';
             s[i++] = c;
-           while (isdigit(c = getch()) || c == '.')
+           while (isdigit(c = getch(buf)) || c == '.')
                 s[i++] = c;
         }
         else {
@@ -111,7 +109,7 @@ double getop(char s[])
         }
 
     if (c == '.')      
-        while (isdigit(s[++i] = c = getch()));
+        while (isdigit(s[++i] = c = getch(buf)));
     s[i] = '\0';
 
      
@@ -121,7 +119,7 @@ double getop(char s[])
     return NUMBER; 
 }
         
-int getch(void)  
+int getch(char buf[])  
 { 
     char c;
     if (strlen(buf) > 0) {
