@@ -37,10 +37,8 @@ int main()
         if (isalpha(word[0]))
             root = addtree(root, word);
 
-    printtree(root);
-
+    // printtree(root);
     create(root);
-
     print_frequency_tree(first);
     return 0;
 }
@@ -69,7 +67,6 @@ void create(struct tnode *p)
         create(p->left);
         first = create_binay_frequency(p, first);
         create(p->right);
-        first = create_binay_frequency(p, first);
     }
 }
 
