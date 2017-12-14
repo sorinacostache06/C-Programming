@@ -5,7 +5,6 @@
 int main(int argc, char *argv[])
 {
     FILE *f, *g;
-    printf("%d\n", argc);
     if (argc == 3) {
         f = fopen(argv[1], "r");
         g = fopen(argv[2], "r");
