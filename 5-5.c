@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 void my_strncpy(char *s, char *t, int n)
 {
@@ -14,21 +15,23 @@ int my_strncmp(char *s, char *t, int n)
        return *s - *t; 
 }
 
-void my_strncat(char *s, char *t, int n)
+char *my_strncat(char *dest, char *source, int n)
 {
-    while (*s++ != '\0')
-        ;
-    *s--;
-    while (--n && (*t != '\0'))
-        *s++ = *t++;
+    char *aux = dest;
+    while (*dest)
+        dest++;
+
+    while(n--) {
+        if ((*dest++ = *source++) == '\0')
+            return aux;
+    }
+    *dest = 0;
+    return aux;
 }
 
 int main()
 {
-    int r;
     char s[] = "destination", t[] = "source";
-  
-    my_strncat(s,t,3);
-    printf("%s\n",s);
+    printf("%s\n",my_strncat(s,t,3));
     return 0;
 }
