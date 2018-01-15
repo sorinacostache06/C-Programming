@@ -1,7 +1,9 @@
 #include <stdio.h>
+#include <time.h>
+
 #define MAXLENGTH 100
 
-int binsearch(int x, int a[], int n)
+int my_binsearch(int x, int a[], int n)
 {
     int li, ls, m;
     li = 0;
@@ -23,10 +25,29 @@ int binsearch(int x, int a[], int n)
         return -1;
 }
 
+int binsearch(int x, int v[], int n) 
+{ 
+    int low, high, mid; 
+    low = 0; 
+    high = n - 1; 
+    while (low <= high) { 
+        mid = (low+high)/2; 
+        if (x < v[mid]) 
+            high = mid + 1; 
+        else if (x  > v[mid]) 
+            low = mid + 1; 
+        else    /* found match */ 
+            return mid; 
+    } 
+    return -1;   /* no match */ 
+} 
+
 int main()
 {
     int a[MAXLENGTH];
     int n, x, pos;
+    double time_mybs, time_bs;
+    clock_t start, end;
 
     printf("Search element:\n ");
     scanf("%d", &x);
@@ -41,9 +62,22 @@ int main()
         scanf("%d", &a[i]);
     }
     
-    pos = binsearch(x, a, n);
+    start = clock();
+    pos = my_binsearch(x, a, n);
+    end = clock();
+    time_mybs = ((double) (end - start)) / CLOCKS_PER_SEC;
+
     if ( pos == -1)
         printf("Element %d is not found!", x);
     else
         printf("Element %d is on position %d.\n", x, pos);
+    
+    clock_t t;
+    t = clock();
+    int res = binsearch(x, a, n);
+    t = clock() - t;
+    double time_taken = ((double)t)/CLOCKS_PER_SEC;
+    printf("MyBinsearch took %f seconds to execute \n", time_mybs);
+    printf("Binsearch took %f seconds to execute \n", time_taken);
+
 }
